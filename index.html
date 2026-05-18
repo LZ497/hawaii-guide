@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hawaii Travel Guide 2026</title>
+  <style>
+    :root {
+      --ink: #253342;
+      --muted: #647281;
+      --line: #e8dfd2;
+      --paper: #fffdf8;
+      --sea: #137f89;
+      --sea-soft: #e1f5f4;
+      --sun: #f7c85f;
+      --coral: #ed8072;
+      --coral-soft: #ffe9e3;
+      --leaf: #679a70;
+      --shadow: 0 14px 36px rgba(37, 51, 66, .10);
+      --radius: 10px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(247, 200, 95, .36), transparent 260px),
+        radial-gradient(circle at 88% 6%, rgba(19, 127, 137, .18), transparent 280px),
+        linear-gradient(180deg, #e9f8f8 0, #fffdf8 430px, #fff7f1 100%);
+      font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 28px)); margin: 0 auto; }
+
+    .hero {
+      min-height: 56vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(260px, .92fr);
+      gap: 28px;
+      align-items: center;
+      padding: 38px 0 24px;
+    }
+
+    .badge {
+      display: inline-flex;
+      border: 1px solid rgba(19, 127, 137, .25);
+      background: rgba(255, 255, 255, .76);
+      color: var(--sea);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    h1 {
+      margin: 16px 0 12px;
+      max-width: 760px;
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 690px;
+      margin: 0;
+      color: #405161;
+      font-size: clamp(17px, 2vw, 21px);
+    }
+
+    .art {
+      min-height: 340px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, .8);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.45)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 760 620'%3E%3Crect width='760' height='620' fill='%23e1f5f4'/%3E%3Ccircle cx='610' cy='118' r='58' fill='%23f7c85f'/%3E%3Cpath d='M0 330 C110 275 200 324 312 262 C430 198 548 226 760 154 L760 620 L0 620 Z' fill='%23679a70'/%3E%3Cpath d='M0 402 C125 344 252 396 368 340 C490 280 612 314 760 266 L760 620 L0 620 Z' fill='%23137f89' opacity='.84'/%3E%3Cpath d='M0 478 C132 430 250 490 380 446 C512 400 628 430 760 384 L760 620 L0 620 Z' fill='%23ed8072' opacity='.68'/%3E%3Cpath d='M126 326 q42 -108 104 0 q-58 -38 -104 0Z' fill='%23253342' opacity='.5'/%3E%3Cpath d='M206 330 q36 -86 96 0 q-50 -30 -96 0Z' fill='%23253342' opacity='.42'/%3E%3Cpath d='M196 340 l20 136' stroke='%23253342' stroke-width='13' stroke-linecap='round' opacity='.70'/%3E%3Cpath d='M506 306 q38 -94 102 0 q-54 -34 -102 0Z' fill='%23253342' opacity='.43'/%3E%3Cpath d='M566 316 l16 104' stroke='%23253342' stroke-width='11' stroke-linecap='round' opacity='.62'/%3E%3Cpath d='M0 528 C106 494 210 548 318 514 C458 470 548 536 760 486 L760 620 L0 620 Z' fill='%23fffdf8' opacity='.93'/%3E%3Ccircle cx='104' cy='150' r='18' fill='%23ed8072' opacity='.72'/%3E%3Ccircle cx='156' cy='104' r='10' fill='%238d76bd' opacity='.52'/%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 4px 0 22px;
+    }
+
+    .card, .day, .panel {
+      background: rgba(255, 255, 255, .88);
+      border: 1px solid rgba(232, 223, 210, .96);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .card { padding: 16px; }
+    .kicker {
+      margin: 0 0 8px;
+      color: var(--sea);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    .card strong { display: block; font-size: 18px; }
+    .card span { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 8;
+      margin: 0 calc((100vw - min(1120px, calc(100vw - 28px))) / -2) 20px;
+      padding: 10px calc((100vw - min(1120px, calc(100vw - 28px))) / 2);
+      background: rgba(248, 252, 250, .9);
+      border-top: 1px solid rgba(232, 223, 210, .6);
+      border-bottom: 1px solid rgba(232, 223, 210, .9);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .nav a, .filter button, .btn {
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: white;
+      color: #4d5e6d;
+      text-decoration: none;
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .nav a { padding: 9px 12px; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .filter {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) repeat(4, auto);
+      gap: 9px;
+      margin-bottom: 16px;
+    }
+
+    .filter input {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: white;
+      padding: 11px 14px;
+      color: var(--ink);
+      outline: none;
+    }
+
+    .filter button {
+      padding: 10px 13px;
+      cursor: pointer;
+    }
+
+    .filter button.active {
+      background: var(--sea-soft);
+      border-color: rgba(19, 127, 137, .34);
+      color: var(--sea);
+    }
+
+    .day {
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .day-head {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr);
+      gap: 14px;
+      padding: 17px;
+      background: linear-gradient(120deg, rgba(225, 245, 244, .98), rgba(255, 246, 221, .96));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .date {
+      display: grid;
+      place-items: center;
+      min-height: 74px;
+      border: 1px solid rgba(19, 127, 137, .18);
+      background: white;
+      border-radius: var(--radius);
+      text-align: center;
+    }
+
+    .date b { display: block; font-size: 23px; line-height: 1; }
+    .date span { display: block; margin-top: 6px; color: var(--sea); font-size: 12px; font-weight: 900; }
+    .day h2 { margin: 0 0 6px; font-size: clamp(23px, 4vw, 31px); }
+    .goal { margin: 0; color: #435464; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 27px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--line);
+      color: #536474;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .tag.booking { background: #f2edff; color: #7257a8; border-color: #ded4ff; }
+    .tag.drive { background: #fff4d4; color: #816114; border-color: #ecd184; }
+    .tag.food { background: #edf8eb; color: #426f36; border-color: #cae6c1; }
+    .tag.warning { background: var(--coral-soft); color: #96463d; border-color: #ffc8bf; }
+
+    .day-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 250px;
+      gap: 16px;
+      padding: 17px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .stop {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid rgba(232, 223, 210, .96);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .time {
+      color: var(--sea);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .stop h3 { margin: 0 0 4px; font-size: 17px; }
+    .stop p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .facts {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .fact {
+      padding: 11px;
+      border: 1px solid rgba(232, 223, 210, .96);
+      border-radius: var(--radius);
+      background: #fbf9f2;
+      font-size: 13px;
+    }
+
+    .fact strong { display: block; margin-bottom: 4px; color: var(--ink); }
+    .fact span { color: var(--muted); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 13px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 36px;
+      padding: 8px 12px;
+      background: var(--ink);
+      border-color: var(--ink);
+      color: white;
+    }
+
+    .btn.secondary {
+      background: white;
+      border-color: var(--line);
+      color: var(--ink);
+    }
+
+    .side {
+      position: sticky;
+      top: 72px;
+    }
+
+    .panel {
+      padding: 15px;
+      margin-bottom: 14px;
+    }
+
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: 19px;
+    }
+
+    .mini {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 9px;
+    }
+
+    .mini li {
+      padding: 10px;
+      border: 1px solid rgba(232, 223, 210, .96);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .mini strong { display: block; margin-bottom: 3px; color: var(--ink); }
+
+    .check {
+      display: grid;
+      grid-template-columns: 19px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      padding: 7px 4px;
+      color: #485868;
+      font-size: 13px;
+    }
+
+    .check input {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--sea);
+    }
+
+    .source {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .source a {
+      color: var(--sea);
+      font-weight: 850;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .art { min-height: 230px; }
+      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .layout { grid-template-columns: 1fr; }
+      .side { position: static; order: -1; }
+      .filter { grid-template-columns: 1fr 1fr; }
+      .filter input { grid-column: 1 / -1; }
+      .day-body { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 22px, 1120px); }
+      .cards { grid-template-columns: 1fr; }
+      .filter { grid-template-columns: 1fr; }
+      .day-head { grid-template-columns: 1fr; }
+      .stop { grid-template-columns: 1fr; gap: 5px; }
+      .nav { margin-left: -11px; margin-right: -11px; padding-left: 11px; padding-right: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero" id="top">
+      <div>
+        <div class="badge">Hawaii · May 23-31, 2026 · Big Island + Maui</div>
+        <h1>夏威夷九日出行指南</h1>
+        <p class="lead">Linpei、Ziqiu、Chenyue 的专业版旅行手册。行程直接写在页面里，手机、微信、Safari、GitHub Pages 都可以直接显示；搜索和筛选只是额外增强。</p>
+      </div>
+      <div class="art" aria-label="Hawaii landscape illustration"></div>
+    </section>
+
+    <section class="cards">
+      <article class="card"><p class="kicker">Travelers</p><strong>Linpei · Ziqiu · Chenyue</strong><span>全篇统一姓名拼写。</span></article>
+      <article class="card"><p class="kicker">Big Island</p><strong>5/23-5/27</strong><span>KOA 抵达，ITO 离岛。Royal Kona Resort + Keaau Airbnb。</span></article>
+      <article class="card"><p class="kicker">Maui</p><strong>5/27-5/31</strong><span>OGG 进出。Maui Coast Hotel 作为基地。</span></article>
+      <article class="card"><p class="kicker">Rental Cars</p><strong>AVIS</strong><span>KOA→ITO，OGG→OGG。取还车时间见侧栏。</span></article>
+    </section>
+
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="#may23">5/23 抵达</a>
+        <a href="#may24">5/24 Kona 南线</a>
+        <a href="#may25">5/25 火山</a>
+        <a href="#may26">5/26 瀑布/星空</a>
+        <a href="#may27">5/27 换岛</a>
+        <a href="#may28">5/28 Haleakalā</a>
+        <a href="#may29">5/29 Hana</a>
+        <a href="#may30">5/30 自由日</a>
+        <a href="#may31">5/31 返程</a>
+      </div>
+    </nav>
+
+    <section class="layout">
+      <div>
+        <section class="filter">
+          <input id="search" type="search" placeholder="搜索：预约、火山、海龟、咖啡、Hana、机场...">
+          <button data-filter="booking">预约</button>
+          <button data-filter="drive">驾驶</button>
+          <button data-filter="food">吃喝</button>
+          <button data-filter="warning">提醒</button>
+        </section>
+
+        <article class="day" id="may23" data-tags="airport food" data-text="5/23 抵达 kona koa avis royal kona resort safeway abc store tk noodle hot pot airport food">
+          <header class="day-head">
+            <div class="date"><div><b>5/23</b><span>周六</span></div></div>
+            <div>
+              <h2>抵达 Kona，集合取车</h2>
+              <p class="goal">今天只做三件事：顺利集合、取 AVIS 车、入住 Royal Kona Resort。晚餐保持轻量。</p>
+              <div class="tags"><span class="tag">机场</span><span class="tag food">吃喝</span></div>
+            </div>
+          </header>
+          <div class="day-body">
+            <div>
+              <div class="timeline">
+                <div class="stop"><div class="time">16:58</div><div><h3>Ziqiu 抵达 KOA</h3><p>CLT → KOA。先取行李，等待集合。</p></div></div>
+                <div class="stop"><div class="time">17:37</div><div><h3>Chenyue 抵达 KOA</h3><p>PHL → KOA。姓名统一为 Chenyue。</p></div></div>
+                <div class="stop"><div class="time">19:00</div><div><h3>AVIS 取车</h3><p>KOA pickup 约 7PM；取车时拍车身、油量和里程。</p></div></div>
+                <div class="stop"><div class="time">19:47</div><div><h3>Linpei 抵达 KOA</h3><p>ORD → LAX → KOA。</p></div></div>
+                <div class="stop"><div class="time">晚间</div><div><h3>入住 + 近距离晚餐</h3><p>Royal Kona Resort；Safeway / ABC Store 补给，TK Noodle & Hot Pot 可作为晚餐候选。</p></div></div>
+              </div>
+              <div class="actions"><a class="btn" target="_blank" rel="noreferrer" href="https://www.google.com/maps/dir/?api=1&origin=Kona%20International%20Airport&destination=Royal%20Kona%20Resort&travelmode=driving&waypoints=Safeway%20Kailua-Kona%7CTK%20Noodle%20%26%20Hot%20Pot%20Kailua-Kona">Google Maps 路线</a><a class="btn secondary" href="#top">回顶部</a></div>
+            </div>
+            <aside class="facts">
+              <div class="fact"><strong>驾驶</strong><span>KOA 到 Royal Kona Resort 通常约 20-25 分钟；取车排队另计。</span></div>
+              <div class="fact"><strong>住宿</strong><span>Royal Kona Resort，5/23-5/25。</span></div>
+              <div class="fact"><strong>提醒</strong><span>第一晚不要安排远距离活动，优先休息。</span></div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="day" id="may24" data-tags="drive food warning" data-text="5/24 greenwell farms coffee puuhonua honaunau south point papakolea punaluu black sand beach honu drive food warning">
+          <header class="day-head">
+            <div class="date"><div><b>5/24</b><span>周日</span></div></div>
+            <div>
+              <h2>Kona 咖啡、历史遗迹与南部海岸</h2>
+              <p class="goal">以 Kona 南线为主，串联咖啡农场、国家历史公园、South Point 和 Punaluʻu Black Sand Beach。</p>
+              <div class="tags"><span class="tag drive">驾驶</span><span class="tag food">吃喝</span><span class="tag warning">提醒</span></div>
+            </div>
+          </header>
+          <div class="day-body">
+            <div>
+              <div class="timeline">
+                <div class="stop"><div class="time">上午</div><div><h3>Greenwell Farms</h3><p>Kona Coffee tour，约 45-60 分钟；免费 tour 9AM-3PM 多时段。</p></div></div>
+                <div class="stop"><div class="time">中午</div><div><h3>Puʻuhonua o Hōnaunau National Historical Park</h3><p>历史遗迹，适合 45-90 分钟；注意防晒和边界标识。</p></div></div>
+                <div class="stop"><div class="time">下午</div><div><h3>South Point</h3><p>风大、崖边危险，拍照保持距离。</p></div></div>
+                <div class="stop"><div class="time">可选</div><div><h3>Papakōlea Green Sand Beach</h3><p>路况差、耗时久，建议只作为体力和天气都合适时的备选。</p></div></div>
+                <div class="stop"><div class="time">下午</div><div><h3>Punaluʻu Black Sand Beach</h3><p>黑沙滩与 honu 观赏点；看海龟时保持距离，不触摸、不围堵。</p></div></div>
+              </div>
+              <div class="actions"><a class="btn" target="_blank" rel="noreferrer" href="https://www.google.com/maps/dir/?api=1&origin=Royal%20Kona%20Resort&destination=Punalu%CA%BBu%20Black%20Sand%20Beach&travelmode=driving&waypoints=Greenwell%20Farms%7CPu%CA%BBuhonua%20o%20H%C5%8Dnaunau%20National%20Historical%20Park%7CSouth%20Point%20Hawaii">Google Maps 路线</a><a class="btn secondary" href="#top">回顶部</a></div>
+            </div>
+            <aside class="facts">
+              <div class="fact"><strong>驾驶</strong><span>Kona 到 Punaluʻu 单程约 1.5-2 小时。</span></div>
+              <div class="fact"><strong>咖啡</strong><span>Greenwell Farms 官方建议 tour 前 10-15 分钟抵达。</span></div>
+              <div class="fact"><strong>提醒</strong><span>南线补给少，提前买水和零食。</span></div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="day" id="may25" data-tags="drive warning" data-text="5/25 hawaii volcanoes national park kilauea steam vents sulphur banks thurston lava tube chain of craters holei sea arch drive warning">
+          <header class="day-head">
+            <div class="date"><div><b>5/25</b><span>周一</span></div></div>
+            <div>
+              <h2>Hawaiʻi Volcanoes National Park</h2>
+              <p class="goal">从 Kona 转场到 Keaau，中途重点游览火山公园。车加满油，按天气和体力调整徒步。</p>
+              <div class="tags"><span class="tag drive">驾驶</span><span class="tag warning">提醒</span></div>
+            </div>
+          </header>
+          <div class="day-body">
+            <div>
+              <div class="timeline">
+                <div class="stop"><div class="time">上午</div><div><h3>Royal Kona Resort 退房</h3><p>出发前加满油，准备午餐/零食。</p></div></div>
+                <div class="stop"><div class="time">中午</div><div><h3>Kīlauea information area</h3><p>先确认当天火山活动、道路、停车和 trail 状态。</p></div></div>
+                <div class="stop"><div class="time">下午</div><div><h3>Steam Vents + Sulphur Banks</h3><p>短停热身，注意风向和硫磺气味。</p></div></div>
+                <div class="stop"><div class="time">下午</div><div><h3>Nāhuku / Thurston Lava Tube</h3><p>熔岩洞；热门时段人多，带手机手电。</p></div></div>
+                <div class="stop"><div class="time">傍晚</div><div><h3>Chain of Craters Road + Hōlei Sea Arch</h3><p>一路下到海边再返回耗时较长，注意天色和油量。</p></div></div>
+                <div class="stop"><div class="time">夜间前</div><div><h3>Keaau Airbnb 入住</h3><p>15-1603 19th Avenue, Keaau, HI 96749。</p></div></div>
+              </div>
+              <div class="actions"><a class="btn" target="_blank" rel="noreferrer" href="https://www.google.com/maps/dir/?api=1&origin=Royal%20Kona%20Resort&destination=15-1603%2019th%20Avenue%20Keaau%20HI%2096749&travelmode=driving&waypoints=Hawaii%20Volcanoes%20National%20Park%7CThurston%20Lava%20Tube%7CHolei%20Sea%20Arch">Google Maps 路线</a><a class="btn secondary" href="#top">回顶部</a></div>
+            </div>
+            <aside class="facts">
+              <div class="fact"><strong>驾驶</strong><span>Kona 到火山公园约 2-2.5 小时；公园到 Keaau 约 40-55 分钟。</span></div>
+              <div class="fact"><strong>装备</strong><span>雨具、外套、手电、水、食物、墨镜、防晒。</span></div>
+              <div class="fact"><strong>提醒</strong><span>熔岩和喷发不可保证，必须以当天 NPS alerts 为准。</span></div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="day" id="may26" data-tags="drive warning" data-text="5/26 akaka falls mauna kea maunakea visitor information station hilo high altitude drive warning">
+          <header class="day-head">
+            <div class="date"><div><b>5/26</b><span>周二</span></div></div>
+            <div>
+              <h2>&#699;Akaka Falls 与 Mauna Kea</h2>
+              <p class="goal">上午走 Hilo 北侧瀑布，下午视天气前往 Mauna Kea Visitor Information Station 或 summit。</p>
+              <div class="tags"><span class="tag drive">驾驶</span><span class="tag warning">提醒</span></div>
+            </div>
+          </header>
+          <div class="day-body">
+            <div>
+              <div class="timeline">
+                <div class="stop"><div class="time">上午</div><div><h3>&#699;Akaka Falls State Park</h3><p>阿卡卡瀑布；游玩 30-50 分钟。</p></div></div>
+                <div class="stop"><div class="time">中午</div><div><h3>Hilo 午餐与补给</h3><p>上山前加满油，买热饮、零食和足够水。</p></div></div>
+                <div class="stop"><div class="time">下午</div><div><h3>Mauna Kea Visitor Information Station</h3><p>先停留适应海拔，观察天气和路况。</p></div></div>
+                <div class="stop"><div class="time">日落前</div><div><h3>Mauna Kea Summit 可选</h3><p>确认租车允许范围、道路是否开放、车辆是否适合；下山低档慢行。</p></div></div>
+              </div>
+              <div class="actions"><a class="btn" target="_blank" rel="noreferrer" href="https://www.google.com/maps/dir/?api=1&origin=15-1603%2019th%20Avenue%20Keaau%20HI%2096749&destination=Mauna%20Kea%20Visitor%20Information%20Station&travelmode=driving&waypoints=Akaka%20Falls%20State%20Park%7CHilo%20Hawaii">Google Maps 路线</a><a class="btn secondary" href="#top">回顶部</a></div>
+            </div>
+            <aside class="facts">
+              <div class="fact"><strong>驾驶</strong><span>Keaau 到 &#699;Akaka Falls 约 45-60 分钟；Hilo 到 VIS 约 1.25-1.5 小时。</span></div>
+              <div class="fact"><strong>费用</strong><span>&#699;Akaka Falls 非居民门票 $5/人、停车 $10/车，信用卡为主。</span></div>
+              <div class="fact"><strong>高海拔</strong><span>VIS 约 2,800m，summit 约 4,205m；不适就下撤。</span></div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="day" id="may27" data-tags="airport food drive" data-text="5/27 hilo farmers market ito hnl ogg avis maui coast hotel airport food drive">
+          <header class="day-head">
+            <div class="date"><div><b>5/27</b><span>周三</span></div></div>
+            <div>
+              <h2>Hilo Farmers Market，飞往 Maui</h2>
+              <p class="goal">上午市场，11AM 前 ITO 还车，11:45AM 岛间航班，下午 OGG 取车并入住 Maui Coast Hotel。</p>
+              <div class="tags"><span class="tag">机场</span><span class="tag food">吃喝</span><span class="tag drive">驾驶</span></div>
+            </div>
+          </header>
+          <div class="day-body">
+            <div>
+              <div class="timeline">
+                <div class="stop"><div class="time">07:00</div><div><h3>Hilo Farmers Market</h3><p>周三规模较大；现金更方便。控制购物量和时间。</p></div></div>
+                <div class="stop"><div class="time">10:30</div><div><h3>ITO Airport 还车</h3><p>预留加油、还车和安检时间。</p></div></div>
+                <div class="stop"><div class="time">11:45</div><div><h3>ITO → HNL → OGG</h3><p>三人同航班，11:45AM-2:50PM，座位 23A / 23B / 23C。</p></div></div>
+                <div class="stop"><div class="time">15:00</div><div><h3>OGG AVIS 取车</h3><p>拍车身、油量、里程，确认还车时间。</p></div></div>
+                <div class="stop"><div class="time">下午</div><div><h3>Maui Coast Hotel 入住</h3><p>OGG 到酒店约 25-35 分钟。</p></div></div>
+              </div>
+              <div class="actions"><a class="btn" target="_blank" rel="noreferrer" href="https://www.google.com/maps/dir/?api=1&origin=Hilo%20Farmers%20Market&destination=Maui%20Coast%20Hotel%20Kihei&travelmode=driving&waypoints=Hilo%20International%20Airport%7CKahului%20Airport">Google Maps 路线</a><a class="btn secondary" href="#top">回顶部</a></div>
+            </div>
+            <aside class="facts">
+              <div class="fact"><strong>航班</strong><span>ITO → HNL → OGG，11:45AM-2:50PM。</span></div>
+              <div class="fact"><strong>租车</strong><span>AVIS ITO 11AM 还车；AVIS OGG 3PM 取车。</span></div>
+              <div class="fact"><strong>提醒</strong><span>市场买水果/液体前确认能否过安检或托运。</span></div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="day" id="may28" data-tags="booking drive warning" data-text="5/28 haleakala national park sunrise reservation summit sunset booking drive warning">
+          <header class="day-head">
+            <div class="date"><div><b>5/28</b><span>周四</span></div></div>
+            <div>
+              <h2>Haleakalā National Park</h2>
+              <p class="goal">根据预约决定日出或日落。没有日出预约时，日落 + 观星更稳妥，也更适合换岛后恢复体力。</p>
+              <div class="tags"><span class="tag booking">预约</span><span class="tag drive">驾驶</span><span class="tag warning">提醒</span></div>
+            </div>
+          </header>
+          <div class="day-body">
+            <div>
+              <div class="timeline">
+                <div class="stop"><div class="time">日出</div><div><h3>2AM 左右从酒店出发</h3><p>仅适用于已拿到 sunrise reservation 的情况；至少提前 30 分钟到山顶找停车。</p></div></div>
+                <div class="stop"><div class="time">日落</div><div><h3>午后出发</h3><p>不需要日出预约，体验更从容；下山夜路要慢。</p></div></div>
+                <div class="stop"><div class="time">山顶</div><div><h3>Summit / Kalahaku / Leleiwi viewpoints</h3><p>看云海、火山口地貌和稀有植物，别跨越保护区域。</p></div></div>
+                <div class="stop"><div class="time">下山</div><div><h3>Upcountry 晚餐或回 Kihei</h3><p>避免疲劳驾驶，司机优先休息。</p></div></div>
+              </div>
+              <div class="actions"><a class="btn" target="_blank" rel="noreferrer" href="https://www.google.com/maps/dir/?api=1&origin=Maui%20Coast%20Hotel%20Kihei&destination=Haleakal%C4%81%20National%20Park%20Summit&travelmode=driving&waypoints=Haleakala%20National%20Park%20Entrance%20Station">Google Maps 路线</a><a class="btn secondary" href="#top">回顶部</a></div>
+            </div>
+            <aside class="facts">
+              <div class="fact"><strong>驾驶</strong><span>Kihei 到 summit 通常约 1.5-2 小时；弯多、海拔上升快。</span></div>
+              <div class="fact"><strong>预约</strong><span>3:00-7:00AM 入园看日出需要每车预约；普通车辆入园费 $30，有效 3 天。</span></div>
+              <div class="fact"><strong>提醒</strong><span>山顶寒冷且风大，带防风外套、热水、零食。</span></div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="day" id="may29" data-tags="booking drive food warning" data-text="5/29 road to hana twin falls garden of eden halfway to hana waianapanapa booking drive food warning">
+          <header class="day-head">
+            <div class="date"><div><b>5/29</b><span>周五</span></div></div>
+            <div>
+              <h2>Road to Hana</h2>
+              <p class="goal">全天驾驶日。核心原则：早点出发、少而精、必须有 Waiʻānapanapa 预约。</p>
+              <div class="tags"><span class="tag booking">预约</span><span class="tag drive">驾驶</span><span class="tag food">吃喝</span><span class="tag warning">提醒</span></div>
+            </div>
+          </header>
+          <div class="day-body">
+            <div>
+              <div class="timeline">
+                <div class="stop"><div class="time">清晨</div><div><h3>Maui Coast Hotel 出发</h3><p>先在 Paia 附近加油、买早餐和水。</p></div></div>
+                <div class="stop"><div class="time">Mile 2</div><div><h3>Twin Falls</h3><p>停车 $10/车，车位有限，先到先得；穿涉水鞋。</p></div></div>
+                <div class="stop"><div class="time">Mile 10.5</div><div><h3>Garden of Eden Arboretum</h3><p>伊甸植物园，8AM-4PM；晴天更值得停。</p></div></div>
+                <div class="stop"><div class="time">Mile 17</div><div><h3>Halfway to Hana</h3><p>香蕉面包、刨冰和简餐休息点。</p></div></div>
+                <div class="stop"><div class="time">Mile 32</div><div><h3>Waiʻānapanapa State Park</h3><p>黑沙滩和洞穴；按预约时段抵达。</p></div></div>
+                <div class="stop"><div class="time">Hana</div><div><h3>Hana Town</h3><p>休整、加油、吃饭；通常到此后原路返回。</p></div></div>
+              </div>
+              <div class="actions"><a class="btn" target="_blank" rel="noreferrer" href="https://www.google.com/maps/dir/?api=1&origin=Maui%20Coast%20Hotel%20Kihei&destination=Hana%20Maui&travelmode=driving&waypoints=Paia%20Maui%7CTwin%20Falls%20Maui%7CGarden%20of%20Eden%20Arboretum%20Maui%7CHalfway%20to%20Hana%7CWai%CA%BB%C4%81napanapa%20State%20Park">Google Maps 路线</a><a class="btn secondary" href="#top">回顶部</a></div>
+            </div>
+            <aside class="facts">
+              <div class="fact"><strong>驾驶</strong><span>Paia 到 Hana 单程约 44 英里，纯驾驶约 1小时40分；边玩边开通常一整天。</span></div>
+              <div class="fact"><strong>预约</strong><span>Waiʻānapanapa 非居民需提前线上预约停车和门票。</span></div>
+              <div class="fact"><strong>提醒</strong><span>弯多桥窄，信号弱；准备离线地图、晕车药和雨具。</span></div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="day" id="may30" data-tags="booking food" data-text="5/30 upcountry farmers market molokini snorkeling whalers village luau booking food">
+          <header class="day-head">
+            <div class="date"><div><b>5/30</b><span>周六</span></div></div>
+            <div>
+              <h2>Upcountry Market 与 Maui 弹性日</h2>
+              <p class="goal">最后一个完整日不宜再高强度赶路。早上市场，下午按天气、体力和预约选择浮潜、购物或 Luau。</p>
+              <div class="tags"><span class="tag booking">预约</span><span class="tag food">吃喝</span></div>
+            </div>
+          </header>
+          <div class="day-body">
+            <div>
+              <div class="timeline">
+                <div class="stop"><div class="time">07:00</div><div><h3>Upcountry Farmers Market</h3><p>推荐饭团类小吃、现剖椰子、lilikoi、本地水果和蜂蜜。</p></div></div>
+                <div class="stop"><div class="time">上午/下午</div><div><h3>Snorkeling 可选</h3><p>Molokini 或海湾浮潜需要看海况；使用 reef-safe 防晒，不踩珊瑚。</p></div></div>
+                <div class="stop"><div class="time">下午</div><div><h3>Whalers Village 可选</h3><p>轻松购物和晚餐候选；Kihei 过去约 45-60 分钟。</p></div></div>
+                <div class="stop"><div class="time">晚上</div><div><h3>Luau 可选</h3><p>传统宴会和歌舞表演，需提前订票并确认停车/接送。</p></div></div>
+              </div>
+              <div class="actions"><a class="btn" target="_blank" rel="noreferrer" href="https://www.google.com/maps/dir/?api=1&origin=Maui%20Coast%20Hotel%20Kihei&destination=Whalers%20Village%20Maui&travelmode=driving&waypoints=Upcountry%20Farmers%20Market%20Maui%7CMolokini%20Crater%20Maui">Google Maps 路线</a><a class="btn secondary" href="#top">回顶部</a></div>
+            </div>
+            <aside class="facts">
+              <div class="fact"><strong>市场</strong><span>Upcountry Farmers Market 每周六 7AM-11AM，现金更方便。</span></div>
+              <div class="fact"><strong>候选</strong><span>Molokini snorkeling、Whalers Village、Luau、The King's Garden tour。</span></div>
+              <div class="fact"><strong>提醒</strong><span>如果 5/29 Road to Hana 很累，今天应降强度。</span></div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="day" id="may31" data-tags="airport drive warning" data-text="5/31 ogg airport avis return flight drive warning">
+          <header class="day-head">
+            <div class="date"><div><b>5/31</b><span>周日</span></div></div>
+            <div>
+              <h2>OGG 还车，返程</h2>
+              <p class="goal">上午只安排退房、加油、还车和机场流程。三人航班都在 1PM 左右，不建议再跑景点。</p>
+              <div class="tags"><span class="tag">机场</span><span class="tag drive">驾驶</span><span class="tag warning">提醒</span></div>
+            </div>
+          </header>
+          <div class="day-body">
+            <div>
+              <div class="timeline">
+                <div class="stop"><div class="time">上午</div><div><h3>Maui Coast Hotel 退房</h3><p>收拾行李，检查房间和保险箱。</p></div></div>
+                <div class="stop"><div class="time">11:15 前</div><div><h3>OGG 附近加油</h3><p>避免还车前临时找不到加油站。</p></div></div>
+                <div class="stop"><div class="time">12:00</div><div><h3>AVIS OGG 还车</h3><p>拍最终油量/里程，保留收据。</p></div></div>
+                <div class="stop"><div class="time">13:03/13:04</div><div><h3>返程航班</h3><p>Chenyue/Ziqiu 1:03PM；Linpei 1:04PM。</p></div></div>
+              </div>
+              <div class="actions"><a class="btn" target="_blank" rel="noreferrer" href="https://www.google.com/maps/dir/?api=1&origin=Maui%20Coast%20Hotel%20Kihei&destination=Kahului%20Airport&travelmode=driving">Google Maps 路线</a><a class="btn secondary" href="#top">回顶部</a></div>
+            </div>
+            <aside class="facts">
+              <div class="fact"><strong>驾驶</strong><span>Maui Coast Hotel 到 OGG 通常约 25-35 分钟；加油和还车另计。</span></div>
+              <div class="fact"><strong>还车</strong><span>AVIS OGG 12PM drop off。</span></div>
+              <div class="fact"><strong>提醒</strong><span>检查证件、充电器、泳衣、防晒、租车收据和农产品限制。</span></div>
+            </aside>
+          </div>
+        </article>
+      </div>
+
+      <aside class="side">
+        <section class="panel">
+          <h2>关键预约</h2>
+          <ul class="mini">
+            <li><strong>Haleakalā Sunrise</strong>3:00-7:00AM 入园看日出需要提前预约，每车预约费 $1；预约不含入园费。</li>
+            <li><strong>Waiʻānapanapa State Park</strong>非夏威夷居民需提前线上购买停车和门票；无预约可能被拒绝入园。</li>
+            <li><strong>Luau / Snorkeling Tour</strong>若 5/30 参加，提前确认集合点、取消政策和是否含接送。</li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <h2>出行清单</h2>
+          <label class="check"><input type="checkbox"><span>证件、驾照、信用卡和航班截图</span></label>
+          <label class="check"><input type="checkbox"><span>Haleakalā 日出预约或日落备选方案</span></label>
+          <label class="check"><input type="checkbox"><span>Waiʻānapanapa 日期、时段、停车和门票</span></label>
+          <label class="check"><input type="checkbox"><span>Big Island、Maui、Road to Hana 离线地图</span></label>
+          <label class="check"><input type="checkbox"><span>防晒、墨镜、帽子、雨具、涉水鞋、毛巾</span></label>
+          <label class="check"><input type="checkbox"><span>高海拔外套、长裤、热水和零食</span></label>
+          <label class="check"><input type="checkbox"><span>现金，小摊和 farmers market 使用更方便</span></label>
+        </section>
+
+        <section class="panel">
+          <h2>航班速查</h2>
+          <ul class="mini">
+            <li><strong>Chenyue</strong>5/23 PHL → KOA 7:10AM-5:37PM；5/31 OGG → LAX → PHL 1:03PM-8:06AM。</li>
+            <li><strong>Ziqiu</strong>5/23 CLT → KOA 8:56AM-4:58PM；5/31 OGG → CLT 1:03PM-6:14AM。</li>
+            <li><strong>Linpei</strong>5/23 ORD → LAX → KOA 10:30AM-7:47PM；5/31 OGG → LAX → ORD 1:04PM-4:51AM。</li>
+            <li><strong>Island hop</strong>5/27 ITO → HNL → OGG，11:45AM-2:50PM，座位 23A / 23B / 23C。</li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <h2>租车 / 住宿</h2>
+          <ul class="mini">
+            <li><strong>AVIS Big Island</strong>5/23 KOA 7PM pickup；5/27 ITO 11AM drop off。</li>
+            <li><strong>AVIS Maui</strong>5/27 OGG 3PM pickup；5/31 OGG 12PM drop off。</li>
+            <li><strong>住宿</strong>Royal Kona Resort 5/23-5/25；Keaau Airbnb 5/25-5/27；Maui Coast Hotel 5/27-5/31。</li>
+          </ul>
+        </section>
+
+        <section class="panel source">
+          <h2>信息来源</h2>
+          <p>费用和预约以官方页面为准；驾驶时间为常规估算，出发当天看 Google Maps 实时路况。</p>
+          <p><a href="https://www.nps.gov/hale/planyourvisit/fees.htm" target="_blank" rel="noreferrer">Haleakalā NPS</a> · <a href="https://gostateparks.hawaii.gov/waianapanapa/about" target="_blank" rel="noreferrer">Waiʻānapanapa</a> · <a href="https://www.greenwellfarms.com/pages/big-island-kona-coffee-tours" target="_blank" rel="noreferrer">Greenwell Farms</a> · <a href="https://dlnr.hawaii.gov/dsp/parks/hawaii/akaka-falls-state-park/" target="_blank" rel="noreferrer">&#699;Akaka Falls</a> · <a href="https://www.twinfallsmaui.net/" target="_blank" rel="noreferrer">Twin Falls</a></p>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var search = document.getElementById("search");
+      var buttons = document.querySelectorAll("[data-filter]");
+      var activeFilter = "";
+
+      function applyFilters() {
+        var query = (search.value || "").toLowerCase().trim();
+        var days = document.querySelectorAll(".day");
+        for (var i = 0; i < days.length; i += 1) {
+          var day = days[i];
+          var matchesText = !query || day.getAttribute("data-text").indexOf(query) !== -1;
+          var matchesFilter = !activeFilter || day.getAttribute("data-tags").indexOf(activeFilter) !== -1;
+          day.classList.toggle("hidden", !(matchesText && matchesFilter));
+        }
+      }
+
+      for (var i = 0; i < buttons.length; i += 1) {
+        buttons[i].addEventListener("click", function () {
+          activeFilter = activeFilter === this.getAttribute("data-filter") ? "" : this.getAttribute("data-filter");
+          for (var j = 0; j < buttons.length; j += 1) {
+            buttons[j].classList.toggle("active", buttons[j].getAttribute("data-filter") === activeFilter);
+          }
+          applyFilters();
+        });
+      }
+
+      search.addEventListener("input", applyFilters);
+    }());
+  </script>
+</body>
+</html>
