@@ -199,26 +199,7 @@
       font-size: 13px;
     }
 
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 8;
-      margin: 0 calc((100vw - min(1120px, calc(100vw - 28px))) / -2) 20px;
-      padding: 10px calc((100vw - min(1120px, calc(100vw - 28px))) / 2);
-      background: rgba(251, 247, 239, .94);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(16px);
-    }
-
-    .nav-inner {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      scrollbar-width: thin;
-    }
-
-    .nav a, .filter button, .btn {
+    .btn {
       border-radius: 999px;
       border: 1px solid var(--line);
       background: white;
@@ -229,47 +210,70 @@
       font-weight: 800;
     }
 
-    .nav a { padding: 9px 12px; }
-
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 320px;
+      grid-template-columns: 180px minmax(0, 1fr) 300px;
       gap: 18px;
       align-items: start;
     }
 
-    .filter {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) repeat(4, auto);
-      gap: 9px;
-      margin-bottom: 16px;
+    .day-nav {
+      position: sticky;
+      top: 14px;
+      align-self: start;
+      padding: 8px 0;
+      border-right: 1px solid var(--line);
     }
 
-    .filter input {
-      min-width: 0;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: white;
-      padding: 11px 14px;
-      color: var(--ink);
-      outline: none;
+    .day-nav a {
+      display: block;
+      margin: 0 10px 6px 0;
+      padding: 9px 10px;
+      border-radius: var(--radius);
+      color: #4d5e6d;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 850;
     }
 
-    .filter button {
-      padding: 10px 13px;
-      cursor: pointer;
-    }
-
-    .filter button.active {
+    .day-nav a.active {
       background: var(--sea-soft);
-      border-color: rgba(19, 127, 137, .34);
       color: var(--sea);
+    }
+
+    .day-nav small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .day-controls {
+      display: none;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .single-day .day-controls { display: grid; }
+
+    .day-counter {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+      text-align: center;
+      white-space: nowrap;
     }
 
     .day {
       margin-bottom: 16px;
       overflow: hidden;
     }
+
+    .single-day .day { display: none; }
+    .single-day .day.active-day { display: block; }
 
     .day-head {
       display: grid;
@@ -396,7 +400,7 @@
 
     .side {
       position: sticky;
-      top: 72px;
+      top: 14px;
     }
 
     .panel {
@@ -470,9 +474,31 @@
       .weather-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .weather-card:nth-child(2) { border-right: 0; }
       .layout { grid-template-columns: 1fr; }
+      .day-nav {
+        position: sticky;
+        top: 0;
+        z-index: 8;
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        margin: 0 -14px 14px;
+        padding: 8px 14px;
+        border-right: 0;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: rgba(251, 247, 239, .96);
+      }
+      .day-nav a {
+        flex: 0 0 auto;
+        margin: 0;
+        border: 1px solid var(--line);
+        background: white;
+        white-space: nowrap;
+      }
+      .day-nav a.active {
+        border-color: #b7deda;
+      }
       .side { position: static; order: -1; }
-      .filter { grid-template-columns: 1fr 1fr; }
-      .filter input { grid-column: 1 / -1; }
       .day-body { grid-template-columns: 1fr; }
     }
 
@@ -485,10 +511,10 @@
         border-bottom: 1px solid var(--line);
       }
       .weather-card:last-child { border-bottom: 0; }
-      .filter { grid-template-columns: 1fr; }
       .day-head { grid-template-columns: 1fr; }
       .stop { grid-template-columns: 1fr; gap: 5px; }
-      .nav { margin-left: -11px; margin-right: -11px; padding-left: 11px; padding-right: 11px; }
+      .day-controls { grid-template-columns: 1fr 1fr; }
+      .day-counter { grid-column: 1 / -1; order: -1; }
     }
   </style>
 </head>
@@ -498,7 +524,6 @@
       <div>
         <div class="badge">Hawaii · May 23-31, 2026 · Big Island + Maui</div>
         <h1>夏威夷九日出行指南</h1>
-        <p class="lead">Linpei、Ziqiu、Chenyue 的专业版旅行手册。行程直接写在页面里，手机、微信、Safari、GitHub Pages 都可以直接显示；搜索和筛选只是额外增强。</p>
       </div>
       <div class="art" aria-label="Hawaii landscape illustration"></div>
     </section>
@@ -544,28 +569,24 @@
       <div class="weather-note">5/28-5/31 请把这里当作出行规划参考，不是最终预报。Haleakalā、Road to Hana、浮潜和 Luau 前 24-48 小时再查 NWS 与路况。</div>
     </section>
 
-    <nav class="nav">
-      <div class="nav-inner">
-        <a href="#may23">5/23 抵达</a>
-        <a href="#may24">5/24 Kona 南线</a>
-        <a href="#may25">5/25 火山</a>
-        <a href="#may26">5/26 瀑布/星空</a>
-        <a href="#may27">5/27 换岛</a>
-        <a href="#may28">5/28 Haleakalā</a>
-        <a href="#may29">5/29 Hana</a>
-        <a href="#may30">5/30 自由日</a>
-        <a href="#may31">5/31 返程</a>
-      </div>
-    </nav>
-
     <section class="layout">
+      <nav class="day-nav" aria-label="每日行程导航">
+        <a href="#may23" data-day-link="may23">5/23 抵达<small>Arrival</small></a>
+        <a href="#may24" data-day-link="may24">5/24 Kona 南线<small>Coffee + Coast</small></a>
+        <a href="#may25" data-day-link="may25">5/25 火山<small>Volcanoes</small></a>
+        <a href="#may26" data-day-link="may26">5/26 瀑布/星空<small>Falls + Mauna Kea</small></a>
+        <a href="#may27" data-day-link="may27">5/27 换岛<small>Island Hop</small></a>
+        <a href="#may28" data-day-link="may28">5/28 Haleakalā<small>Summit</small></a>
+        <a href="#may29" data-day-link="may29">5/29 Hana<small>Road Trip</small></a>
+        <a href="#may30" data-day-link="may30">5/30 自由日<small>Flexible</small></a>
+        <a href="#may31" data-day-link="may31">5/31 返程<small>Departure</small></a>
+      </nav>
+
       <div>
-        <section class="filter">
-          <input id="search" type="search" placeholder="搜索：预约、火山、海龟、咖啡、Hana、机场...">
-          <button data-filter="booking">预约</button>
-          <button data-filter="drive">驾驶</button>
-          <button data-filter="food">吃喝</button>
-          <button data-filter="warning">提醒</button>
+        <section class="day-controls" aria-label="切换每日行程">
+          <button class="btn secondary" id="prevDay" type="button">前一天</button>
+          <div class="day-counter" id="dayCounter">1 / 9</div>
+          <button class="btn secondary" id="nextDay" type="button">后一天</button>
         </section>
 
         <article class="day" id="may23" data-tags="airport food" data-text="5/23 抵达 kona koa avis royal kona resort safeway abc store tk noodle hot pot airport food">
@@ -880,32 +901,86 @@
 
   <script>
     (function () {
-      var search = document.getElementById("search");
-      var buttons = document.querySelectorAll("[data-filter]");
-      var activeFilter = "";
+      var dayIds = ["may23", "may24", "may25", "may26", "may27", "may28", "may29", "may30", "may31"];
+      var labels = ["5/23 抵达", "5/24 Kona 南线", "5/25 火山", "5/26 瀑布/星空", "5/27 换岛", "5/28 Haleakalā", "5/29 Hana", "5/30 自由日", "5/31 返程"];
+      var currentIndex = getDefaultIndex();
+      var prevButton = document.getElementById("prevDay");
+      var nextButton = document.getElementById("nextDay");
+      var counter = document.getElementById("dayCounter");
+      var touchStartX = 0;
+      var touchStartY = 0;
 
-      function applyFilters() {
-        var query = (search.value || "").toLowerCase().trim();
-        var days = document.querySelectorAll(".day");
-        for (var i = 0; i < days.length; i += 1) {
-          var day = days[i];
-          var matchesText = !query || day.getAttribute("data-text").indexOf(query) !== -1;
-          var matchesFilter = !activeFilter || day.getAttribute("data-tags").indexOf(activeFilter) !== -1;
-          day.classList.toggle("hidden", !(matchesText && matchesFilter));
+      document.body.classList.add("single-day");
+
+      function getDefaultIndex() {
+        var now = new Date();
+        var tripStart = new Date(2026, 4, 23);
+        var tripEnd = new Date(2026, 4, 31);
+        if (now < tripStart) return 0;
+        if (now > tripEnd) return dayIds.length - 1;
+        return Math.max(0, Math.min(dayIds.length - 1, Math.floor((now - tripStart) / 86400000)));
+      }
+
+      function showDay(index, updateHash) {
+        currentIndex = Math.max(0, Math.min(dayIds.length - 1, index));
+
+        for (var i = 0; i < dayIds.length; i += 1) {
+          var day = document.getElementById(dayIds[i]);
+          var link = document.querySelector('[data-day-link="' + dayIds[i] + '"]');
+          if (day) day.classList.toggle("active-day", i === currentIndex);
+          if (link) link.classList.toggle("active", i === currentIndex);
+        }
+
+        prevButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex === dayIds.length - 1;
+        counter.textContent = labels[currentIndex] + " · " + (currentIndex + 1) + " / " + dayIds.length;
+
+        if (updateHash) {
+          history.replaceState(null, "", "#" + dayIds[currentIndex]);
         }
       }
 
-      for (var i = 0; i < buttons.length; i += 1) {
-        buttons[i].addEventListener("click", function () {
-          activeFilter = activeFilter === this.getAttribute("data-filter") ? "" : this.getAttribute("data-filter");
-          for (var j = 0; j < buttons.length; j += 1) {
-            buttons[j].classList.toggle("active", buttons[j].getAttribute("data-filter") === activeFilter);
-          }
-          applyFilters();
+      function indexFromHash() {
+        var id = window.location.hash.replace("#", "");
+        var index = dayIds.indexOf(id);
+        return index >= 0 ? index : null;
+      }
+
+      var hashIndex = indexFromHash();
+      if (hashIndex !== null) currentIndex = hashIndex;
+
+      var links = document.querySelectorAll("[data-day-link]");
+      for (var i = 0; i < links.length; i += 1) {
+        links[i].addEventListener("click", function (event) {
+          event.preventDefault();
+          var index = dayIds.indexOf(this.getAttribute("data-day-link"));
+          if (index >= 0) showDay(index, true);
         });
       }
 
-      search.addEventListener("input", applyFilters);
+      prevButton.addEventListener("click", function () {
+        showDay(currentIndex - 1, true);
+      });
+
+      nextButton.addEventListener("click", function () {
+        showDay(currentIndex + 1, true);
+      });
+
+      document.addEventListener("touchstart", function (event) {
+        if (!event.touches || event.touches.length !== 1) return;
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+      }, { passive: true });
+
+      document.addEventListener("touchend", function (event) {
+        if (!event.changedTouches || event.changedTouches.length !== 1) return;
+        var dx = event.changedTouches[0].clientX - touchStartX;
+        var dy = event.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.4) return;
+        showDay(currentIndex + (dx < 0 ? 1 : -1), true);
+      }, { passive: true });
+
+      showDay(currentIndex, false);
     }());
   </script>
 </body>
