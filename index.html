@@ -417,6 +417,35 @@
       font-size: 19px;
     }
 
+    .panel summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .panel summary::-webkit-details-marker { display: none; }
+
+    .panel summary::after {
+      content: "+";
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--sea-soft);
+      color: var(--sea);
+      font-weight: 900;
+    }
+
+    .panel[open] summary { margin-bottom: 12px; }
+    .panel[open] summary::after { content: "−"; }
+
     .mini {
       list-style: none;
       padding: 0;
@@ -467,12 +496,50 @@
     .hidden { display: none !important; }
 
     @media (max-width: 920px) {
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .art { min-height: 230px; }
-      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      body {
+        background-image: none;
+      }
+      .wrap { width: min(100% - 18px, 1120px); }
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 18px 0 12px;
+      }
+      .badge {
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+      h1 {
+        margin: 12px 0 0;
+        font-size: clamp(34px, 11vw, 48px);
+      }
+      .art,
+      .cards {
+        display: none;
+      }
+      .weather-brief {
+        margin-bottom: 12px;
+        padding: 13px;
+      }
       .weather-head { display: block; }
-      .weather-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .weather-card:nth-child(2) { border-right: 0; }
+      .weather-head h2 { font-size: 19px; }
+      .weather-grid {
+        display: flex;
+        overflow-x: auto;
+        gap: 8px;
+        border: 0;
+        padding-bottom: 3px;
+      }
+      .weather-card,
+      .weather-card:nth-child(2) {
+        flex: 0 0 78%;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+      }
+      .weather-note {
+        font-size: 12px;
+        padding: 8px 10px;
+      }
       .layout { grid-template-columns: 1fr; }
       .day-nav {
         position: sticky;
@@ -486,7 +553,7 @@
         border-right: 0;
         border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
-        background: rgba(251, 247, 239, .96);
+        background: rgba(251, 247, 239, .98);
       }
       .day-nav a {
         flex: 0 0 auto;
@@ -494,27 +561,128 @@
         border: 1px solid var(--line);
         background: white;
         white-space: nowrap;
+        font-size: 13px;
+        padding: 8px 10px;
       }
+      .day-nav small { display: none; }
       .day-nav a.active {
         border-color: #b7deda;
       }
-      .side { position: static; order: -1; }
+      .side {
+        position: static;
+        margin-top: 8px;
+      }
       .day-body { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 560px) {
       .wrap { width: min(100% - 22px, 1120px); }
-      .cards { grid-template-columns: 1fr; }
-      .weather-grid { grid-template-columns: 1fr; }
-      .weather-card {
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
+      .day {
+        border: 0;
+        background: transparent;
       }
-      .weather-card:last-child { border-bottom: 0; }
-      .day-head { grid-template-columns: 1fr; }
-      .stop { grid-template-columns: 1fr; gap: 5px; }
+      .day-head {
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 10px;
+        padding: 14px 0 12px;
+        background: transparent;
+        border-bottom: 0;
+      }
+      .date {
+        min-height: 62px;
+        border-radius: 14px;
+      }
+      .date b { font-size: 20px; }
+      .day h2 { font-size: 25px; }
+      .goal { font-size: 14px; }
+      .tags { margin-top: 9px; gap: 5px; }
+      .tag {
+        min-height: 24px;
+        padding: 4px 8px;
+        font-size: 11px;
+      }
+      .day-body {
+        padding: 0;
+        gap: 13px;
+      }
+      .timeline {
+        gap: 0;
+        border-top: 1px solid var(--line);
+      }
+      .stop {
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 10px;
+        padding: 13px 0;
+        border-left: 0;
+        border-bottom: 1px solid var(--line);
+        border-radius: 0;
+        background: transparent;
+      }
+      .time {
+        align-self: start;
+        width: fit-content;
+        max-width: 70px;
+        padding: 3px 7px;
+        border-radius: 999px;
+        background: var(--sea-soft);
+        font-size: 12px;
+      }
+      .stop h3 { font-size: 16px; }
+      .stop p { font-size: 13px; }
+      .facts {
+        display: flex;
+        overflow-x: auto;
+        gap: 8px;
+        padding-bottom: 3px;
+      }
+      .fact {
+        flex: 0 0 78%;
+        border-left: 0;
+        border: 1px solid #f0db9f;
+        background: #fff9e8;
+      }
+      .actions {
+        position: sticky;
+        bottom: 8px;
+        z-index: 5;
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 253, 247, .94);
+        backdrop-filter: blur(12px);
+      }
+      .actions .btn {
+        flex: 1 1 auto;
+        min-height: 42px;
+      }
+      .actions .btn.secondary {
+        flex: 0 0 auto;
+        width: 84px;
+      }
       .day-controls { grid-template-columns: 1fr 1fr; }
       .day-counter { grid-column: 1 / -1; order: -1; }
+      .panel {
+        padding: 0;
+        margin-bottom: 8px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: white;
+      }
+      .panel summary {
+        padding: 13px;
+        font-size: 16px;
+      }
+      .panel[open] summary {
+        margin-bottom: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .panel .mini,
+      .panel .check,
+      .panel p {
+        margin-left: 13px;
+        margin-right: 13px;
+      }
+      .panel .mini { padding: 5px 0; }
     }
   </style>
 </head>
@@ -841,27 +1009,27 @@
       </div>
 
       <aside class="side">
-        <section class="panel">
-          <h2>关键预约</h2>
+        <details class="panel">
+          <summary>关键预约</summary>
           <ul class="mini">
             <li><strong>Haleakalā Sunrise</strong>3:00-7:00AM 入园看日出需要提前预约，每车预约费 $1；预约不含入园费。</li>
             <li><strong>Waiʻānapanapa State Park</strong>非夏威夷居民需提前线上购买停车和门票；无预约可能被拒绝入园。</li>
             <li><strong>Luau / Snorkeling Tour</strong>若 5/30 参加，提前确认集合点、取消政策和是否含接送。</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="panel">
-          <h2>天气行动建议</h2>
+        <details class="panel">
+          <summary>天气行动建议</summary>
           <ul class="mini">
             <li><strong>Big Island west</strong>Kona 白天约 28°C，轻装即可，但车里仍备雨衣。</li>
             <li><strong>Hilo / Volcano</strong>更湿，约 19-26°C；火山公园和瀑布日按会下雨准备。</li>
             <li><strong>Haleakalā</strong>summit 夜间/清晨约 8-10°C，风寒会更低；不要只穿海边衣服上山。</li>
             <li><strong>Road to Hana</strong>出发前 24 小时再看 NWS 和路况；强雨时砍瀑布/涉水点。</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="panel">
-          <h2>出行清单</h2>
+        <details class="panel">
+          <summary>出行清单</summary>
           <label class="check"><input type="checkbox"><span>证件、驾照、信用卡和航班截图</span></label>
           <label class="check"><input type="checkbox"><span>Haleakalā 日出预约或日落备选方案</span></label>
           <label class="check"><input type="checkbox"><span>Waiʻānapanapa 日期、时段、停车和门票</span></label>
@@ -869,32 +1037,32 @@
           <label class="check"><input type="checkbox"><span>防晒、墨镜、帽子、雨具、涉水鞋、毛巾</span></label>
           <label class="check"><input type="checkbox"><span>高海拔外套、长裤、热水和零食</span></label>
           <label class="check"><input type="checkbox"><span>现金，小摊和 farmers market 使用更方便</span></label>
-        </section>
+        </details>
 
-        <section class="panel">
-          <h2>航班速查</h2>
+        <details class="panel">
+          <summary>航班速查</summary>
           <ul class="mini">
             <li><strong>Chenyue</strong>5/23 PHL → KOA 7:10AM-5:37PM；5/31 OGG → LAX → PHL 1:03PM-8:06AM。</li>
             <li><strong>Ziqiu</strong>5/23 CLT → KOA 8:56AM-4:58PM；5/31 OGG → CLT 1:03PM-6:14AM。</li>
             <li><strong>Linpei</strong>5/23 ORD → LAX → KOA 10:30AM-7:47PM；5/31 OGG → LAX → ORD 1:04PM-4:51AM。</li>
             <li><strong>Island hop</strong>5/27 ITO → HNL → OGG，11:45AM-2:50PM，座位 23A / 23B / 23C。</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="panel">
-          <h2>租车 / 住宿</h2>
+        <details class="panel">
+          <summary>租车 / 住宿</summary>
           <ul class="mini">
             <li><strong>AVIS Big Island</strong>5/23 KOA 7PM pickup；5/27 ITO 11AM drop off。</li>
             <li><strong>AVIS Maui</strong>5/27 OGG 3PM pickup；5/31 OGG 12PM drop off。</li>
             <li><strong>住宿</strong>Royal Kona Resort 5/23-5/25；Keaau Airbnb 5/25-5/27；Maui Coast Hotel 5/27-5/31。</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="panel source">
-          <h2>信息来源</h2>
+        <details class="panel source">
+          <summary>信息来源</summary>
           <p>费用和预约以官方页面为准；驾驶时间为常规估算，出发当天看 Google Maps 实时路况。天气使用 NOAA/NWS point forecast，温度已换算为 °C。</p>
           <p><a href="https://www.weather.gov/hfo/" target="_blank" rel="noreferrer">NWS Honolulu</a> · <a href="https://www.nps.gov/hale/planyourvisit/fees.htm" target="_blank" rel="noreferrer">Haleakalā NPS</a> · <a href="https://gostateparks.hawaii.gov/waianapanapa/about" target="_blank" rel="noreferrer">Waiʻānapanapa</a> · <a href="https://www.greenwellfarms.com/pages/big-island-kona-coffee-tours" target="_blank" rel="noreferrer">Greenwell Farms</a> · <a href="https://dlnr.hawaii.gov/dsp/parks/hawaii/akaka-falls-state-park/" target="_blank" rel="noreferrer">&#699;Akaka Falls</a> · <a href="https://www.twinfallsmaui.net/" target="_blank" rel="noreferrer">Twin Falls</a></p>
-        </section>
+        </details>
       </aside>
     </section>
   </main>
