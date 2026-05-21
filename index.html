@@ -109,6 +109,76 @@
     .card strong { display: block; font-size: 18px; }
     .card span { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; }
 
+    .weather-brief {
+      margin: 0 0 22px;
+      padding: 16px;
+      background: rgba(255, 255, 255, .90);
+      border: 1px solid rgba(232, 223, 210, .96);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .weather-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 13px;
+    }
+
+    .weather-head h2 {
+      margin: 0 0 4px;
+      font-size: 22px;
+    }
+
+    .weather-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .weather-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .weather-card {
+      border: 1px solid rgba(232, 223, 210, .96);
+      border-radius: var(--radius);
+      background: var(--paper);
+      padding: 12px;
+    }
+
+    .weather-card h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .temp {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--sea);
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1.05;
+    }
+
+    .weather-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .weather-note {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      background: var(--coral-soft);
+      color: #8d443b;
+      font-size: 13px;
+    }
+
     .nav {
       position: sticky;
       top: 0;
@@ -368,6 +438,8 @@
       .hero { grid-template-columns: 1fr; min-height: auto; }
       .art { min-height: 230px; }
       .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .weather-head { display: block; }
+      .weather-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .layout { grid-template-columns: 1fr; }
       .side { position: static; order: -1; }
       .filter { grid-template-columns: 1fr 1fr; }
@@ -378,6 +450,7 @@
     @media (max-width: 560px) {
       .wrap { width: min(100% - 22px, 1120px); }
       .cards { grid-template-columns: 1fr; }
+      .weather-grid { grid-template-columns: 1fr; }
       .filter { grid-template-columns: 1fr; }
       .day-head { grid-template-columns: 1fr; }
       .stop { grid-template-columns: 1fr; gap: 5px; }
@@ -401,6 +474,40 @@
       <article class="card"><p class="kicker">Big Island</p><strong>5/23-5/27</strong><span>KOA 抵达，ITO 离岛。Royal Kona Resort + Keaau Airbnb。</span></article>
       <article class="card"><p class="kicker">Maui</p><strong>5/27-5/31</strong><span>OGG 进出。Maui Coast Hotel 作为基地。</span></article>
       <article class="card"><p class="kicker">Rental Cars</p><strong>AVIS</strong><span>KOA→ITO，OGG→OGG。取还车时间见侧栏。</span></article>
+    </section>
+
+    <section class="weather-brief" id="weather">
+      <div class="weather-head">
+        <div>
+          <p class="kicker">Local weather prediction</p>
+          <h2>天气简报，温度为 °C</h2>
+          <p>Updated May 21, 2026 from NOAA/NWS point forecasts. Forecast confidence is best through May 27; refresh again before Maui days.</p>
+        </div>
+        <a class="btn secondary" target="_blank" rel="noreferrer" href="https://www.weather.gov/hfo/">NWS Honolulu</a>
+      </div>
+      <div class="weather-grid">
+        <article class="weather-card">
+          <h3>Kona / West Big Island</h3>
+          <span class="temp">23-28°C</span>
+          <p>5/23-5/27: mostly sunny to partly cloudy, with isolated/scattered showers possible. Good for arrival, coffee, beaches, and south-coast stops.</p>
+        </article>
+        <article class="weather-card">
+          <h3>Hilo / Volcano side</h3>
+          <span class="temp">19-26°C</span>
+          <p>5/25-5/27: showers are likely or scattered. Pack rain shell for Volcanoes National Park, &#699;Akaka Falls, and Hilo Farmers Market.</p>
+        </article>
+        <article class="weather-card">
+          <h3>Kihei / South Maui</h3>
+          <span class="temp">20-28°C</span>
+          <p>5/27 onward: mostly sunny pattern in the current forecast window. Good base for beach, market, and flexible Maui activities.</p>
+        </article>
+        <article class="weather-card">
+          <h3>Haleakalā Summit</h3>
+          <span class="temp">8-20°C</span>
+          <p>Current summit forecast is mostly clear/partly cloudy, but sunrise and sunset feel colder with wind. Bring real cold-weather layers.</p>
+        </article>
+      </div>
+      <div class="weather-note">For 5/28-5/31, treat this as a planning snapshot, not a final forecast. Check NWS again 24-48 hours before Haleakalā, Road to Hana, snorkeling, and Luau decisions.</div>
     </section>
 
     <nav class="nav">
@@ -689,6 +796,16 @@
         </section>
 
         <section class="panel">
+          <h2>天气行动建议</h2>
+          <ul class="mini">
+            <li><strong>Big Island west</strong>Kona 白天约 28°C，轻装即可，但车里仍备雨衣。</li>
+            <li><strong>Hilo / Volcano</strong>更湿，约 19-26°C；火山公园和瀑布日按会下雨准备。</li>
+            <li><strong>Haleakalā</strong>summit 夜间/清晨约 8-10°C，风寒会更低；不要只穿海边衣服上山。</li>
+            <li><strong>Road to Hana</strong>出发前 24 小时再看 NWS 和路况；强雨时砍瀑布/涉水点。</li>
+          </ul>
+        </section>
+
+        <section class="panel">
           <h2>出行清单</h2>
           <label class="check"><input type="checkbox"><span>证件、驾照、信用卡和航班截图</span></label>
           <label class="check"><input type="checkbox"><span>Haleakalā 日出预约或日落备选方案</span></label>
@@ -720,8 +837,8 @@
 
         <section class="panel source">
           <h2>信息来源</h2>
-          <p>费用和预约以官方页面为准；驾驶时间为常规估算，出发当天看 Google Maps 实时路况。</p>
-          <p><a href="https://www.nps.gov/hale/planyourvisit/fees.htm" target="_blank" rel="noreferrer">Haleakalā NPS</a> · <a href="https://gostateparks.hawaii.gov/waianapanapa/about" target="_blank" rel="noreferrer">Waiʻānapanapa</a> · <a href="https://www.greenwellfarms.com/pages/big-island-kona-coffee-tours" target="_blank" rel="noreferrer">Greenwell Farms</a> · <a href="https://dlnr.hawaii.gov/dsp/parks/hawaii/akaka-falls-state-park/" target="_blank" rel="noreferrer">&#699;Akaka Falls</a> · <a href="https://www.twinfallsmaui.net/" target="_blank" rel="noreferrer">Twin Falls</a></p>
+          <p>费用和预约以官方页面为准；驾驶时间为常规估算，出发当天看 Google Maps 实时路况。天气使用 NOAA/NWS point forecast，温度已换算为 °C。</p>
+          <p><a href="https://www.weather.gov/hfo/" target="_blank" rel="noreferrer">NWS Honolulu</a> · <a href="https://www.nps.gov/hale/planyourvisit/fees.htm" target="_blank" rel="noreferrer">Haleakalā NPS</a> · <a href="https://gostateparks.hawaii.gov/waianapanapa/about" target="_blank" rel="noreferrer">Waiʻānapanapa</a> · <a href="https://www.greenwellfarms.com/pages/big-island-kona-coffee-tours" target="_blank" rel="noreferrer">Greenwell Farms</a> · <a href="https://dlnr.hawaii.gov/dsp/parks/hawaii/akaka-falls-state-park/" target="_blank" rel="noreferrer">&#699;Akaka Falls</a> · <a href="https://www.twinfallsmaui.net/" target="_blank" rel="noreferrer">Twin Falls</a></p>
         </section>
       </aside>
     </section>
